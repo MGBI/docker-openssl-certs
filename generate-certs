@@ -39,7 +39,7 @@ else
     openssl req -x509 -new -nodes -key ${CA_KEY} -days ${CA_EXPIRE} -out ${CA_CERT} -subj "/CN=${CA_SUBJECT}"  || exit 1
 fi
 
-[[ -n $DEBUG ]] && cat $CA_CERT
+[ $DEBUG -eq 1 ] && cat $CA_CERT
 
 echo "====> Generating new config file ${SSL_CONFIG}"
 cat > ${SSL_CONFIG} <<EOM
@@ -86,16 +86,16 @@ openssl x509 -req -in ${SSL_CSR} -CA ${CA_CERT} -CAkey ${CA_KEY} -CAcreateserial
 
 echo -n
 echo -n
-echo "***** CA CERT"
-cat $CA_CERT
+echo "***** CA CERT: $CA_CERT"
+[ $DEBUG -eq 1 ] && cat $CA_CERT
 echo -n
 echo -n
-echo "***** SSL_KEY"
-cat $SSL_KEY
+echo "***** SSL_KEY: $SSL_KEY"
+[ $DEBUG -eq 1] && cat $SSL_KEY
 echo -n
 echo -n
-echo "***** SSL CERT"
-cat $SSL_CERT
+echo "***** SSL CERT: $SSL_CERT"
+[ $DEBUG -eq 1] && cat $SSL_CERT
 echo -n
 echo -n
 
