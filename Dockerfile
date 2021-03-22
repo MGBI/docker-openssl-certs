@@ -1,4 +1,9 @@
-FROM stakater/base-alpine:3.5
+# 'openssl' package as a Docker image.
+#
+# Check the source repository:
+# https://github.com/MGBI/docker-openssl-certs
+
+FROM alpine
 
 RUN apk --update add openssl
 
