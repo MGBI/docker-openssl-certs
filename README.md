@@ -1,16 +1,32 @@
-Self Signed SSL Certificate Generator
-=================================================
+**Forked from:**
+https://github.com/stakater/dockerfile-ssl-certs-generator
 
-About
------
+# OpenSSL CLI for certs Docker image
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/mgbi/openssl-certs.svg?maxAge=8600)][hub]
+[![License](https://img.shields.io/github/license/mgbi/docker-openssl-certs.svg?maxAge=8600)]()
+
+[hub]: https://hub.docker.com/r/mgbi/openssl-certs/
+
+Docker image for [OpenSSL CLI](https://www.openssl.org/docs/man1.0.2/man1/openssl.html).
+
+It allows you to create self-signed SSL certificates inside the Docker container.
+
+## About
 Origin: https://github.com/paulczar/omgwtfssl
 
 Sick of googling every time you need a self signed certificate?
 
 This is a small docker image based off `alpine linux` which makes creating self signed SSL certs easier:
 
+## Instalation
 ```
-$ docker run -v /tmp/certs:/certs stakater/ssl-certs-generator:1.0
+docker pull mgbi/openssl-certs
+```
+
+## Usage
+```
+$ docker run -v /tmp/certs:/certs mgbi/openssl-certs
 ----------------------------
 | SSL Cert Generator |
 ----------------------------
@@ -42,9 +58,7 @@ $ openssl verify -CAfile /tmp/certs/ca.pem /tmp/certs/cert.pem
 
 ```
 
-Advanced Usage
---------------
-
+## Advanced Usage
 Customize the certs using the following Environment Variables:
 
 * `CA_KEY` CA Key file, default `ca-key.pem` __[1]__
@@ -68,7 +82,6 @@ Examples
 --------
 
 ### Create Certificates for NGINX
-
 _Creating web certs for testing SSL just got a hell of a lot easier..._
 
 Create Certificate:
@@ -109,9 +122,7 @@ $ curl --cacert /tmp/certs/ca.pem https://test.example.com
 ...
 ```
 
-
 ### Create keys for docker registry
-
 _Slightly more interesting example of using `stakater/ssl-certs-generator` as a volume container to build and host SSL certs for the Docker Registry image_
 
 Create the volume container for the registry from `stakater/ssl-certs-generator`:

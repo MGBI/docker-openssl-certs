@@ -98,4 +98,3 @@ echo "***** SSL CERT: $SSL_CERT"
 [ $DEBUG -eq 1] && cat $SSL_CERT
 echo -n
 echo -n
-
