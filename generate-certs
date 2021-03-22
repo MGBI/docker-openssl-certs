@@ -21,7 +21,7 @@ export SSL_SUBJECT=${SSL_SUBJECT:-"example.com"}
 export SSL_DNS=${SSL_DNS}
 export SSL_IP=${SSL_IP}
 
-export DEBUG=${DEBUG:=1}
+export DEBUG=${DEBUG:=0}
 
 echo "--> Certificate Authority"
 
