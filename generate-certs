@@ -1,4 +1,5 @@
 #!/bin/bash
+# We need bash for arrays support.
 
 echo "----------------------------"
 echo "| SSL Cert Generator |"
@@ -25,14 +26,14 @@ export DEBUG=${DEBUG:=0}
 
 echo "--> Certificate Authority"
 
-if [[ -e ./${CA_KEY} ]]; then
+if [ -e ./${CA_KEY} ]; then
     echo "====> Using existing CA Key ${CA_KEY}"
 else
     echo "====> Generating new CA key ${CA_KEY}"
     openssl genrsa -out ${CA_KEY} 2048
 fi
 
-if [[ -e ./${CA_CERT} ]]; then
+if [ -e ./${CA_CERT} ]; then
     echo "====> Using existing CA Certificate ${CA_CERT}"
 else
     echo "====> Generating new CA Certificate ${CA_CERT}"
@@ -53,7 +54,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage = clientAuth, serverAuth
 EOM
 
-if [[ -n ${SSL_DNS} || -n ${SSL_IP} ]]; then
+if [ -n "${SSL_DNS}" ] || [ -n "${SSL_IP}" ]; then
     cat >> ${SSL_CONFIG} <<EOM
 subjectAltName = @alt_names
 [alt_names]
@@ -66,7 +67,7 @@ EOM
       echo DNS.$((i+1)) = ${dns[$i]} >> ${SSL_CONFIG}
     done
 
-    if [[ -n ${SSL_IP} ]]; then
+    if [ -n "${SSL_IP}" ]; then
         ip=(${SSL_IP})
         for i in "${!ip[@]}"; do
           echo IP.$((i+1)) = ${ip[$i]} >> ${SSL_CONFIG}
@@ -91,10 +92,10 @@ echo "***** CA CERT: $CA_CERT"
 echo -n
 echo -n
 echo "***** SSL_KEY: $SSL_KEY"
-[ $DEBUG -eq 1] && cat $SSL_KEY
+[ $DEBUG -eq 1 ] && cat $SSL_KEY
 echo -n
 echo -n
 echo "***** SSL CERT: $SSL_CERT"
-[ $DEBUG -eq 1] && cat $SSL_CERT
+[ $DEBUG -eq 1 ] && cat $SSL_CERT
 echo -n
 echo -n

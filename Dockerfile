@@ -5,12 +5,12 @@
 
 FROM alpine
 
-RUN apk --update add openssl
+RUN apk --no-cache add --update bash openssl
 
 WORKDIR /certs
 
 COPY generate-certs /usr/local/bin/generate-certs
 
-CMD /usr/local/bin/generate-certs
+CMD generate-certs
 
 VOLUME /certs
